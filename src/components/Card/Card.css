@@ -1,0 +1,15 @@
+.card-container {
+    width: 200px;
+    height: 250px;
+    border: 1px solid rgba(0, 0, 0, 0.405);
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
+    display: flex;
+}
+
+.card-inner {
+    border: 3px solid rgba(255, 255, 255, 0.405);
+    border-radius: 8px;
+    width: 200px;
+    height: 250px;
+}

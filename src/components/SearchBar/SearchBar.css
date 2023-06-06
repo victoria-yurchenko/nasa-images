@@ -1,0 +1,56 @@
+.btn-search {
+    border-radius: 8px;
+    width: 80px;
+    border: 1px solid rgba(0, 0, 0, 0.405);
+    background-color: rgba(198, 29, 29, 0.849);
+    color: rgb(255, 254, 253);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
+    height: 35px;
+    font-family: monospace;
+}
+
+.btn-search:hover {
+    background-color: rgb(198, 29, 29);
+}
+
+.btn-search:active {
+    background-color: rgb(198, 29, 29);
+    transform: translateY(4px);
+}
+
+.btn-learn-more {
+    border-radius: 8px;
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, 0.405);
+    background-color: rgba(42, 156, 32, 0.849);
+    color: rgb(255, 254, 253);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
+    height: 35px;
+    font-family: monospace;
+}
+
+.btn-learn-more:hover {
+    background-color: rgba(52, 187, 40, 0.849);
+}
+
+.btn-learn-more:active {
+    background-color: rgba(52, 187, 40, 0.849);
+    transform: translateY(4px);
+}
+
+.input-search {
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
+    border: 1px solid rgba(0, 0, 0, 0.405);
+    height: 35px;
+    background-color: rgb(255, 254, 253);
+    font-family: monospace;
+}
+
+.input-search:hover {
+    background-color: rgb(255, 250, 250);
+}
+
+.input-search::placeholder{
+    padding-left: 5px;
+}

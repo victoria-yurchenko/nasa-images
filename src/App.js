@@ -1,25 +1,51 @@
-import logo from './logo.svg';
 import './App.css';
+import ResultList from './components/ResultList/ResultList';
+import SearchBar from './components/SearchBar/SearchBar';
+import { useEffect, useState } from 'react';
 
 function App() {
+
+  const [responce, setResponce] = useState([]);
+  const [doRedraw, setDoRedraw] = useState(true);
+
+  useEffect(() => { }, [responce]);
+  useEffect(() => { }, [doRedraw]);
+
+  const onResponceChange = (data) => { setResponce(data); }
+  const onDoRedrawChange = (data) => { setDoRedraw(data); }
+
+  const searchBar = 
+    <SearchBar
+      onResponceChange={onResponceChange}
+      onDoRedrawChange={onDoRedrawChange}
+    />;
+
+  const resultList =
+    <ResultList
+      responce={responce}
+      doRedraw={doRedraw}
+    />;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      {header()}
+      {body()}
     </div>
   );
+
+  function body() {
+    return <div className='d-inline-flex'>
+      {resultList}
+    </div>;
+  }
+
+  function header() {
+    return <div>
+      <span>
+        {searchBar}
+      </span>
+    </div>;
+  }
 }
 
 export default App;
