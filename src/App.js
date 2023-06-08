@@ -8,13 +8,18 @@ function App() {
   const [responce, setResponce] = useState([]);
   const [doRedraw, setDoRedraw] = useState(true);
 
-  useEffect(() => { }, [responce]);
+  useEffect(() => {
+
+    
+
+
+  }, [responce]);
   useEffect(() => { }, [doRedraw]);
 
   const onResponceChange = (data) => { setResponce(data); }
   const onDoRedrawChange = (data) => { setDoRedraw(data); }
 
-  const searchBar = 
+  const searchBar =
     <SearchBar
       onResponceChange={onResponceChange}
       onDoRedrawChange={onDoRedrawChange}

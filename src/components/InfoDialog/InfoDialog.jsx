@@ -5,7 +5,8 @@ import {
     DialogContent,
     DialogTitle,
     Typography,
-    Button
+    Button,
+    Grid
 } from '@mui/material';
 
 export default function InfoDialog({
@@ -38,13 +39,17 @@ export default function InfoDialog({
                 <DialogTitle>
                     <Typography>{title}</Typography>
                 </DialogTitle>
-                <DialogContent style={{ width: "300px", height: "500px" }}>
-                    <img style={{ width: "250px", height: "350px", borderRadius: "8px", border: "3px solid rgba(0, 0, 0, 0.605)" }}
-                        src={sourceUrl} alt="Nasa image" />
+                <DialogContent>
+                    <img 
+                        style={{ width: "250px", borderRadius: "8px", border: "3px solid rgba(0, 0, 0, 0.605)" }}
+                        src={sourceUrl} 
+                        alt="Nasa image" 
+                        onClick={() => window.open(sourceUrl, '_blank')} /
+                    >
                     <Typography>{description}</Typography>
+                    <Typography>({dateCreated.substring(0, 9)})</Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Typography>{dateCreated.substring(0, 9)}</Typography>
                     <Button href='https://images.nasa.gov/'>Learn More</Button>
                     <Button onClick={() => downloadImage(sourceUrl)}>Download</Button>
                     <Button onClick={() => onIsOpenChange(false)}>Close</Button>

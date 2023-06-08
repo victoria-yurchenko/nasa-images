@@ -25,7 +25,7 @@ export default function Card({
     }
 
     return (
-        <div className='card-container m-4'>
+        <div className='card-container'>
             <div style={{ display: "none" }} >
                 {dateCreated}+{description}+{title}+{sourceUrl}
             </div>

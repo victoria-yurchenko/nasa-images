@@ -28,32 +28,40 @@ export default function SearchBar({ onResponceChange, onDoRedrawChange }) {
             onChange={event => setQuery(event.target.value)}
         />;
 
-    const learnMoreButton = 
-        <form 
+    const learnMoreButton =
+        <form
             action='https://images.nasa.gov/'
-            style={{display:'fixed'}}
+            style={{ display: 'fixed' }}
         >
-            <input 
-                type='submit' 
+            <input
+                type='submit'
                 value={'Learn More'}
                 className='btn-learn-more'
             />
         </form>
 
     return (
-        <div className='container m-2'>
-            <form className='form'>
-                {searchInput}
-                {searchButton}
-                {learnMoreButton}
-            </form>
+        <div className='container'>
+            <nav className='navbar navbar-light'>
+                <div className='container-fluid'>
+                    <span className='navbar-brand'>
+                        {searchInput}
+                        {searchButton}
+                    </span>
+                    <span className='navbar-brand'>{learnMoreButton}</span>
+                </div>
+            </nav>
         </div >
     )
 
     function getNasaResponce(event) {
 
         event.preventDefault();
-        axios.get('https://images-api.nasa.gov/search?q=' + query)
+        axios({
+            url: 'https://images-api.nasa.gov/search?q=' + query,
+            method: 'GET',
+            withCredentials: false
+        })
             .then(res => {
                 const data = Array.from(res.data.collection.items);
                 setResponce(data);
