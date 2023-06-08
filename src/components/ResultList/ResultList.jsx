@@ -6,69 +6,27 @@ import Card from '../Card/Card';
 import '../Card/Card.css';
 
 export default function ResultList({
-    responce,
+    nasaImages,
     doRedraw }) {
 
     //todo:
-    //convert image to gray-scale, compare pixelsyy
+    //convert image to gray-scale, compare pixels
 
-    const [nasaImages, setNasaImages] = useState([{}]);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState({});
-    const [isReady, setIsReady] = useState(false);
 
-    useEffect(() => setIsReady(true), [nasaImages]);
-    useEffect(() => { }, [isReady])
+
     useEffect(() => { }, [isOpen]);
     useEffect(() => { }, [selectedImage]);
 
     const onIsOpenChange = (data) => { setIsOpen(data); }
     const onSelectedImageChange = (data) => { setSelectedImage(data); }
 
-    //refactor this method
-    const getImages = () => {
-
-        let fromNasa = [];
-
-        setIsReady(false);
-
-        for (let i = 0; i < responce.length; i++) {
-
-            axios.get(responce[i].href)
-                .then(currentImage => {
-                    let data = Array.from(currentImage.data);
-
-                    for (let j = 0; j < data.length; j++) {
-
-                        const sourceUrl = data[j];
-
-                        if (sourceUrl.includes('.jpg')) {
-
-                            const fromApi = responce[i].data[0];
-
-                            const image = new NasaImage(
-                                fromApi.date_created,
-                                fromApi.description,
-                                fromApi.title,
-                                sourceUrl
-                            );
-
-                            fromNasa.push(image);
-                        }
-                    }
-                })
-                .catch(err => console.log(err));
-        }
-
-        setNasaImages(fromNasa);
-    }
-
 
     return (
         <div className='row' >
-            <button onClick={getImages}></button>
             {
-                doRedraw && isReady
+                doRedraw
                     ?
                     displayList()
                     :

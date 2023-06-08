@@ -2,16 +2,26 @@ import React, { useEffect } from 'react';
 import './SearchBar.css';
 import { useState } from 'react';
 import axios from 'axios';
+import { NasaImage } from '../../classModels/NasaImage';
 
-export default function SearchBar({ onResponceChange, onDoRedrawChange }) {
+export default function SearchBar({
+    onDoRedrawChange,
+    onNasaImagesChange }) {
+
 
     const [query, setQuery] = useState('');
-    const [responce, setResponce] = useState([]);
     const [doRedraw, setDoRedraw] = useState(false);
+    const [nasaImages, setNasaImages] = useState([{}]);
+
 
     useEffect(() => { }, [query]);
-    useEffect(() => onResponceChange(responce), [responce]);
     useEffect(() => onDoRedrawChange(doRedraw), [doRedraw]);
+    useEffect(() => {
+        setDoRedraw(true);
+        console.log(1)
+        onNasaImagesChange(nasaImages);
+    }, [nasaImages]);
+
 
     const searchButton =
         <button
@@ -40,6 +50,7 @@ export default function SearchBar({ onResponceChange, onDoRedrawChange }) {
             />
         </form>
 
+
     return (
         <div className='container'>
             <nav className='navbar navbar-light'>
@@ -54,19 +65,47 @@ export default function SearchBar({ onResponceChange, onDoRedrawChange }) {
         </div >
     )
 
-    function getNasaResponce(event) {
+    async function getNasaResponce(event) {
 
         event.preventDefault();
-        axios({
+        await axios({
             url: 'https://images-api.nasa.gov/search?q=' + query,
             method: 'GET',
             withCredentials: false
         })
-            .then(res => {
-                const data = Array.from(res.data.collection.items);
-                setResponce(data);
-            })
-            .catch(error => console.log(error));
-        setDoRedraw(true);
+        .then(async data => {
+
+            const responce = Array.from(data.data.collection.items);
+            let fromNasa = [];
+
+            for (let i = 0; i < responce.length; i++) {
+
+                await axios.get(responce[i].href)
+                .then(currentImage => {
+
+                    let data = Array.from(currentImage.data);
+
+                    for (let j = 0; j < data.length; j++) {
+
+                        const sourceUrl = data[j];
+                        console.log(1)
+                        if (sourceUrl.includes('.jpg')) {
+                            const fromApi = responce[i].data[0];
+                            const image = new NasaImage(
+                                fromApi.date_created,
+                                fromApi.description,
+                                fromApi.title,
+                                sourceUrl
+                            );
+                            fromNasa.push(image);
+                        }
+                    }})
+                    .catch(err => console.log(err));
+            }
+            console.log(fromNasa)
+            setNasaImages(fromNasa);
+        })
+        .catch(error => console.log(error));
+        setDoRedraw(false);
     }
 }

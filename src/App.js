@@ -5,30 +5,24 @@ import { useEffect, useState } from 'react';
 
 function App() {
 
-  const [responce, setResponce] = useState([]);
+  const [nasaImages, setNasaImages] = useState([{}]);
   const [doRedraw, setDoRedraw] = useState(true);
 
-  useEffect(() => {
-
-    
-
-
-  }, [responce]);
   useEffect(() => { }, [doRedraw]);
 
-  const onResponceChange = (data) => { setResponce(data); }
   const onDoRedrawChange = (data) => { setDoRedraw(data); }
+  const onNasaImagesChange = (data) => { setNasaImages(data); console.log(nasaImages) }
 
   const searchBar =
     <SearchBar
-      onResponceChange={onResponceChange}
       onDoRedrawChange={onDoRedrawChange}
+      onNasaImagesChange={onNasaImagesChange}
     />;
 
   const resultList =
     <ResultList
-      responce={responce}
       doRedraw={doRedraw}
+      nasaImages={nasaImages}
     />;
 
   return (
@@ -39,17 +33,21 @@ function App() {
   );
 
   function body() {
-    return <div className='d-inline-flex'>
-      {resultList}
-    </div>;
+    return (
+      <div className='d-inline-flex'>
+        {resultList}
+      </div>
+    )
   }
 
   function header() {
-    return <div>
-      <span>
-        {searchBar}
-      </span>
-    </div>;
+    return (
+      <div>
+        <span>
+          {searchBar}
+        </span>
+      </div>
+    )
   }
 }
 
