@@ -8,20 +8,16 @@ export default function SearchBar({
     onDoRedrawChange,
     onNasaImagesChange }) {
 
-
     const [query, setQuery] = useState('');
     const [doRedraw, setDoRedraw] = useState(false);
     const [nasaImages, setNasaImages] = useState([{}]);
 
-
     useEffect(() => { }, [query]);
     useEffect(() => onDoRedrawChange(doRedraw), [doRedraw]);
     useEffect(() => {
-        setDoRedraw(true);
-        console.log(1)
         onNasaImagesChange(nasaImages);
+        setDoRedraw(true);
     }, [nasaImages]);
-
 
     const searchButton =
         <button
@@ -65,6 +61,7 @@ export default function SearchBar({
         </div >
     )
 
+    //refactor this method, too long
     async function getNasaResponce(event) {
 
         event.preventDefault();
