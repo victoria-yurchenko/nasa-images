@@ -11,6 +11,7 @@ export default function ResultList({
 
     //todo:
     //convert image to gray-scale, compare pixels
+    //filtering by date
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState({});
@@ -26,7 +27,7 @@ export default function ResultList({
     return (
         <div className='row' >
             {
-                doRedraw
+                doRedraw && nasaImages.length > 1
                     ?
                     displayList()
                     :
@@ -41,7 +42,7 @@ export default function ResultList({
 
 
     function displayList() {
-        return <div className='card-container m-4 flex-wrap'>
+        return <div className='card-container m-4  flex-wrap'>
             {displayCards()}
             {createInfoDialog()}
         </div>;

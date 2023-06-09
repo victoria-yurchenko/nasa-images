@@ -1,12 +1,11 @@
 .btn-search {
     border-radius: 8px;
-    width: 80px;
+    width: 100px;
     border: 1px solid rgba(0, 0, 0, 0.405);
     background-color: rgba(198, 29, 29, 0.849);
     color: rgb(255, 254, 253);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
     height: 35px;
-    font-family: monospace;
 }
 
 .btn-search:hover {
@@ -20,13 +19,12 @@
 
 .btn-learn-more {
     border-radius: 8px;
-    width: 120px;
+    width: 130px;
     border: 1px solid rgba(0, 0, 0, 0.405);
     background-color: rgba(42, 156, 32, 0.849);
     color: rgb(255, 254, 253);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
     height: 35px;
-    font-family: monospace;
 }
 
 .btn-learn-more:hover {
@@ -38,13 +36,33 @@
     transform: translateY(4px);
 }
 
+.btn-submit {
+    border-radius: 8px;
+    width: 100px;
+    border: 1px solid rgba(0, 0, 0, 0.405);
+    background-color: rgba(32, 113, 156, 0.849);
+    color: rgb(255, 254, 253);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
+    height: 35px;
+    margin: 5px;
+}
+
+.btn-submit:hover {
+    background-color: rgba(40, 149, 208, 0.849);
+}
+
+.btn-submit:active {
+    background-color: rgba(40, 149, 208, 0.849);
+    transform: translateY(4px);
+}
+
 .input-search {
     border-radius: 8px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
     border: 1px solid rgba(0, 0, 0, 0.405);
     height: 35px;
     background-color: rgb(255, 254, 253);
-    font-family: monospace;
+    margin: 5px;
 }
 
 .input-search:hover {
@@ -53,4 +71,14 @@
 
 .input-search::placeholder{
     padding-left: 5px;
+}
+
+.input-date {
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
+    margin-left:5px;
+    margin-right:5px;
+    border: 1px solid rgba(0, 0, 0, 0.405);
+    height: 35px;
+    background-color: rgb(255, 254, 253);
 }

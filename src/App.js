@@ -11,7 +11,7 @@ function App() {
   useEffect(() => { }, [doRedraw]);
 
   const onDoRedrawChange = (data) => { setDoRedraw(data); }
-  const onNasaImagesChange = (data) => { setNasaImages(data); console.log(nasaImages) }
+  const onNasaImagesChange = (data) => { setNasaImages(data); /**console.log(nasaImages) */ }
 
   const searchBar =
     <SearchBar
@@ -34,7 +34,11 @@ function App() {
 
   function body() {
     return (
-      <div className='d-inline-flex'>
+      <div
+        className='d-inline-flex'
+        style={{
+          paddingTop: '100px'
+        }}>
         {resultList}
       </div>
     )
@@ -42,7 +46,15 @@ function App() {
 
   function header() {
     return (
-      <div>
+      <div
+        style={{
+          position: 'fixed',
+          backgroundImage: "url('https://wallpaperaccess.com/full/1472764.jpg')",
+          width: '100%',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.405)',
+          boxShadow: '5px 5px 10px rgba(0, 0, 0, 0.382)'
+        }}
+      >
         <span>
           {searchBar}
         </span>
