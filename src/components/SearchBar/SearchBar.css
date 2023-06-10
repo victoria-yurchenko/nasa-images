@@ -17,6 +17,11 @@
     transform: translateY(4px);
 }
 
+.btn-search:disabled {
+    background-color: rgb(112, 19, 19);
+    transform: translateY(0px);
+}
+
 .btn-learn-more {
     border-radius: 8px;
     width: 130px;
@@ -56,11 +61,17 @@
     transform: translateY(4px);
 }
 
+.btn-submit:disabled {
+    background-color: rgba(19, 74, 104, 0.849);
+    transform: translateY(0px);
+}
+
 .input-search {
     border-radius: 8px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.382);
     border: 1px solid rgba(0, 0, 0, 0.405);
     height: 35px;
+    width: 320px;
     background-color: rgb(255, 254, 253);
     margin: 5px;
 }

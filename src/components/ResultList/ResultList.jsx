@@ -27,7 +27,7 @@ export default function ResultList({
     return (
         <div className='row' >
             {
-                doRedraw && nasaImages.length > 1
+                doRedraw 
                     ?
                     displayList()
                     :
