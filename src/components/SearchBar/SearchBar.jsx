@@ -20,7 +20,6 @@ export default function SearchBar({
     useEffect(() => { }, [dateTo]);
     useEffect(() => onDoRedrawChange(doRedraw), [doRedraw]);
     useEffect(() => {
-        console.log(nasaImages)
         onNasaImagesChange(nasaImages);
         setDoRedraw(true);
     }, [nasaImages]);
@@ -30,7 +29,12 @@ export default function SearchBar({
         <button
             id='btn-search'
             className='btn-search m-2'
-            onClick={(event) => getNasaResponce(event)}
+            onClick={event => {
+                if (query.trim() != '')
+                    getNasaResponce(event);
+                else
+                    alert('Enter the query!');
+            }}
         >Search</button>;
 
     const searchInput =
@@ -38,7 +42,12 @@ export default function SearchBar({
             type='text'
             className='input-search'
             placeholder='Type here...'
-            onChange={event => setQuery(event.target.value)}
+            onChange={event => {
+                setQuery(event.target.value);
+                const div = event.target.parentElement.parentElement;
+                lockControls(div);
+                div.children[0].children[1].disabled = false;
+            }}
         />;
 
     const learnMoreButton =
@@ -79,56 +88,34 @@ export default function SearchBar({
                     setDateTo(dateFrom);
                 }
                 else
-                    setDateFrom(event.target.value);
+                    setDateTo(event.target.value);
             }}
         />;
 
     const submitDateButton =
         <button
             className='btn-submit'
-            disabled
-            onClick={() => {
+            onClick={(event) => {
 
-                if (nasaImages.length > 1) {
-
-                    let images = [{}];
-
-                    for (let i = 0; i < nasaImages.length; i++) {
-
-                        let img = nasaImages[i];
-                        let date = img.dateCreated.substring(0, 10);
-
-                        // console.log(dateFrom + "..." + dateTo);
-
-
-                        if (dateFrom == '' && dateTo == '')
-                            images.push(img);
-                        else if (dateFrom == '') {
-                            if (date < dateTo)
-                                images.push(img);
-                        }
-                        else if (dateTo == '') {
-                            if (date > dateFrom)
-                                images.push(img);
-                        }
-                        else {
-                            if (date > dateFrom && date < dateTo) {
-
-                                images.push(img);
-                                // console.log(images)
-
-                            }
-                        }
+                try {
+                    const div = event.target.parentElement.parentElement;
+                    if (nasaImages.length != 0) {
+                        lockControls(div);
+                        filter(div);
+                        setDoRedraw(false);
+                    }
+                    else {
+                        alert('Nothing to filter!');
+                        event.target.disabled = true;
                     }
 
-                    // console.log(images);
-                    setNasaImages(images);
-                    // setDoRedraw(false);
                 }
-
-                setDoRedraw(false);
+                catch (error) {
+                    console.log(error);
+                }
             }}
-        >Filter</button>;
+
+        > Filter</button >;
 
     return (
         <div className='container'>
@@ -150,6 +137,29 @@ export default function SearchBar({
             </nav>
         </div >
     )
+
+    function filter(div) {
+
+        let images = [];
+
+        for (let i = 0; i < nasaImages.length; i++) {
+
+            let img = nasaImages[i];
+            let date = img.dateCreated.substring(0, 10);
+
+            if (dateFrom == '' && dateTo == '')
+                images.push(img);
+            else if (dateFrom == '' && date <= dateTo)
+                images.push(img);
+            else if (dateTo == '' && date >= dateFrom)
+                images.push(img);
+            else if (date >= dateFrom && date <= dateTo)
+                images.push(img);
+        }
+
+        div.children[0].children[1].disabled = false;
+        setNasaImages(images);
+    }
 
     //from the  <div className='container-fluid'></div>
     function lockControls(div) {
@@ -186,18 +196,19 @@ export default function SearchBar({
 
                 const responce = Array.from(data.data.collection.items);
                 let fromNasa = [];
-                // let grayScalesImages = [];
-                // let i = 0;
-                // let isFirst = true;
 
-                // no need async here!
+                // no need async here! Need to fully initialize the array before useState
                 for (let i = 0; i < responce.length; i++) {
                     await axios.get(responce[i].href)
                         .then(currentImage => {
                             let data = Array.from(currentImage.data);
                             for (let j = 0; j < data.length; j++) {
                                 const sourceUrl = data[j];
-                                console.log(1)
+
+                                //need to add the loading animation here
+                                console.log('loading...');
+
+                                // raw variant, loosing too much images
                                 if (sourceUrl.includes('.jpg')) {
                                     const fromApi = responce[i].data[0];
                                     const image = new NasaImage(
@@ -206,115 +217,24 @@ export default function SearchBar({
                                         fromApi.title,
                                         sourceUrl
                                     );
-
                                     fromNasa.push(image);
-                                    // const result = convertToGrayScale(image);
-
-                                    // if (isFirst) {
-                                    //     isFirst = false;
-                                    //     grayScalesImages.push(result);
-                                    //     fromNasa.push(image);
-                                    // }
-                                    // else {
-                                    //     if (!includes(grayScalesImages, result)) {
-                                    //         grayScalesImages.push(result);
-                                    //         fromNasa.push(image);
-                                    //     }
-                                    // }
-
-                                    // console.log(result)
-                                    // console.log(i)
-                                    //fromNasa.push(image);
+                                    break;
                                 }
                             }
                         })
                         .catch(err => console.log(err));
                 }
-                //console.log(grayScalesImages)
                 setNasaImages(fromNasa);
                 unlockControls(div);
-                //  await writeChanges(fromNasa);
             })
             .catch(error => console.log(error));
         setDoRedraw(false);
     }
 }
 
-// function includes(list, obj) {
-//  console.log(list.length + ' length')
-//  console.log(list.length + ' length')
-//     for (let k = 0; k < list.length; k++) {
-//         for (let l; l < obj.data.length; l++) {
 
 
-// console.log(list[k].data[l] != obj.data[l]);
-
-//             if (list[k].data[l] != obj.data[l]){
-//                 return false;
-
-//             }
-//         }
-//     }
-//     return true;
-// }
-/*
-
-*/
-
-function convertToGrayScale(image) {
-
-    const img = document.createElement('img');
-    img.source = image.sourceUrl;
-
-    const canvas = document.createElement('canvas');
-    canvas.width = 500;
-    canvas.height = 500;
-
-    const context = canvas.getContext('2d');
-    img.crossOrigin = 'anonymous';
-    context.drawImage(img, 0, 0);
-
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
-
-    for (let i = 0; i < data.length; i += 4) {
-        let count = imageData.data[i] + imageData.data[i + 1] + imageData.data[i + 2];
-        let colour = 0;
-        if (count > 383)
-            colour = 255;
-
-        imageData.data[i] = colour;
-        imageData.data[i + 1] = colour;
-        imageData.data[i + 2] = colour;
-        imageData.data[i + 3] = 255;
-    }
-
-    return imageData;
-
-    // if (i == 0) {
-    //     fromNasa.push(image);
-    //     grayScalesImages.push(imageData);
-    //     // console.log(grayScalesImages);
-    //     i++;
-    // }
-    // else {
-    //     for (let i = 0; i < grayScalesImages.length; i++) {
-    //         for (let j = 0; j < data.length; j++) {
-    //             if (grayScalesImages[i].data[j] != imageData.data[j])
-    //             {
-    //                 i++;
-    //                 return;
-    //             }
-    //         }
-    //     }
-    // }
-
-    // console.log('canvas');
-}
-
-
-
-//save json to file to make the loading process faster
+//save json to file to make the loading process faster next time
 // async function writeChanges(nasaImages) {
 //     await nasaImages.map(image => {
 

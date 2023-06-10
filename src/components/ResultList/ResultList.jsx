@@ -10,8 +10,7 @@ export default function ResultList({
     doRedraw }) {
 
     //todo:
-    //convert image to gray-scale, compare pixels
-    //filtering by date
+    //convert image to gray-scale, compare pixels == too long comparing
 
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState({});
