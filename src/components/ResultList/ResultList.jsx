@@ -26,7 +26,7 @@ export default function ResultList({
     return (
         <div className='row' >
             {
-                doRedraw 
+                doRedraw
                     ?
                     displayList()
                     :
@@ -41,7 +41,7 @@ export default function ResultList({
 
 
     function displayList() {
-        return <div className='card-container m-4  flex-wrap'>
+        return <div className='card-container m-4 flex-wrap'>
             {displayCards()}
             {createInfoDialog()}
         </div>;

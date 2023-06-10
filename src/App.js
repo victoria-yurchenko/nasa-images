@@ -1,4 +1,5 @@
 import './App.css';
+import LoadingAnimation from './components/LoadingAnimation/LoadingAnimation';
 import ResultList from './components/ResultList/ResultList';
 import SearchBar from './components/SearchBar/SearchBar';
 import { useEffect, useState } from 'react';
@@ -7,16 +8,19 @@ function App() {
 
   const [nasaImages, setNasaImages] = useState([{}]);
   const [doRedraw, setDoRedraw] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => { }, [doRedraw]);
 
   const onDoRedrawChange = (data) => { setDoRedraw(data); }
-  const onNasaImagesChange = (data) => { setNasaImages(data); /**console.log(nasaImages) */ }
+  const onNasaImagesChange = (data) => { setNasaImages(data); }
+  const onIsLoadingChange = (data) => { setIsLoading(data); }
 
   const searchBar =
     <SearchBar
       onDoRedrawChange={onDoRedrawChange}
       onNasaImagesChange={onNasaImagesChange}
+      onIsLoadingChange={onIsLoadingChange}
     />;
 
   const resultList =
@@ -24,6 +28,9 @@ function App() {
       doRedraw={doRedraw}
       nasaImages={nasaImages}
     />;
+
+  const loading =
+    <LoadingAnimation />;
 
   return (
     <div >
@@ -39,7 +46,11 @@ function App() {
         style={{
           paddingTop: '100px'
         }}>
-        {resultList}
+        {
+          isLoading
+            ? loading
+            : resultList
+        }
       </div>
     )
   }

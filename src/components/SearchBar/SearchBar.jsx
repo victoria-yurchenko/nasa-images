@@ -8,10 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function SearchBar({
     onDoRedrawChange,
-    onNasaImagesChange }) {
+    onNasaImagesChange,
+    onIsLoadingChange }) {
 
     const [query, setQuery] = useState('');
     const [doRedraw, setDoRedraw] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [nasaImages, setNasaImages] = useState([]);
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
@@ -19,8 +21,12 @@ export default function SearchBar({
     useEffect(() => { }, [query]);
     useEffect(() => { }, [dateFrom]);
     useEffect(() => { }, [dateTo]);
+    useEffect(() => {
+        onIsLoadingChange(isLoading);
+    }, [isLoading]);
     useEffect(() => onDoRedrawChange(doRedraw), [doRedraw]);
     useEffect(() => {
+        setIsLoading(false);
         onNasaImagesChange(nasaImages);
         setDoRedraw(true);
     }, [nasaImages]);
@@ -104,7 +110,7 @@ export default function SearchBar({
                         filter(div);
                         setDoRedraw(false);
                     }
-                    else 
+                    else
                         toast('Nothing to filter!')
                 }
                 catch (error) {
@@ -132,7 +138,7 @@ export default function SearchBar({
                     </span>
                 </div>
             </nav>
-            <ToastContainer />s
+            <ToastContainer />
         </div >
     )
 
@@ -192,6 +198,7 @@ export default function SearchBar({
         })
             .then(async data => {
 
+                setIsLoading(true);
                 const responce = Array.from(data.data.collection.items);
                 let fromNasa = [];
 
