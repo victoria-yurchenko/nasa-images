@@ -3,7 +3,8 @@ import './SearchBar.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { NasaImage } from '../../classModels/NasaImage';
-import { ReactDOM } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function SearchBar({
     onDoRedrawChange,
@@ -24,7 +25,6 @@ export default function SearchBar({
         setDoRedraw(true);
     }, [nasaImages]);
 
-
     const searchButton =
         <button
             id='btn-search'
@@ -33,7 +33,7 @@ export default function SearchBar({
                 if (query.trim() != '')
                     getNasaResponce(event);
                 else
-                    alert('Enter the query!');
+                    toast('Enter the search field!');
             }}
         >Search</button>;
 
@@ -104,11 +104,8 @@ export default function SearchBar({
                         filter(div);
                         setDoRedraw(false);
                     }
-                    else {
-                        alert('Nothing to filter!');
-                        event.target.disabled = true;
-                    }
-
+                    else 
+                        toast('Nothing to filter!')
                 }
                 catch (error) {
                     console.log(error);
@@ -135,6 +132,7 @@ export default function SearchBar({
                     </span>
                 </div>
             </nav>
+            <ToastContainer />s
         </div >
     )
 
@@ -147,7 +145,7 @@ export default function SearchBar({
             let img = nasaImages[i];
             let date = img.dateCreated.substring(0, 10);
 
-            if (dateFrom == '' && dateTo == '')
+            if (dateFrom.trim() == '' && dateTo.trim() == '')
                 images.push(img);
             else if (dateFrom == '' && date <= dateTo)
                 images.push(img);
