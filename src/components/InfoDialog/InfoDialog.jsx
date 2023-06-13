@@ -25,7 +25,7 @@ export default function InfoDialog({
 
         const link = document.createElement('a');
         link.href = imageURL;
-        link.download = title + '_' + Date.now();
+        link.download = title + '_' + Date.now() + '.jpg';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
