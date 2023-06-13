@@ -10,11 +10,11 @@
 
         This project use open NASA image and video library API. Getting the images and showing them and information about them at the dynamic list below.
 
-## Running the project:
+# Running the project:
 
         To start the searching enter the query at the input field at the top left corner.
 
-        ![image](https://github.com/xwonderwallx/nasa-images/assets/95779373/53db3b84-bfbd-41bc-a291-bb5942f57383)
+        (https://github.com/xwonderwallx/nasa-images/assets/95779373/53db3b84-bfbd-41bc-a291-bb5942f57383)
         
         Wait till the list will appear. It may take some time.
         
