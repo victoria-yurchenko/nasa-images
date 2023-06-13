@@ -10,7 +10,7 @@
 
         This project use open NASA image and video library API. Getting the images and showing them and information about them at the dynamic list below.
 
-# Running the project:
+## Running the project:
 
         To start the searching enter the query at the input field at the top left corner.
 
