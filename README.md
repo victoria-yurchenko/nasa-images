@@ -8,7 +8,9 @@
       
 ## About
 
-        This project use open NASA image and video library API. Getting the images and showing them and information about them at the dynamic list below.
+        This project use open NASA image and video library API. 
+        Getting the images and showing them and information about them at 
+        the dynamic list below.
 
 ## Running the project:
 
@@ -40,7 +42,9 @@
         
 ![image](https://github.com/xwonderwallx/nasa-images/assets/95779373/8c9e7c98-b05d-4f39-be55-f798f6bd9fe8)
 
-        To get more information about the Nasa Images and Video Library click Learn More button at the right top corner of the screen or the botton button at the Info Dialog.
+        To get more information about the Nasa Images and Video Library 
+        click Learn More button at the right top corner of the screen or 
+        the botton button at the Info Dialog.
         
 ![image](https://github.com/xwonderwallx/nasa-images/assets/95779373/68731c9f-44f9-492b-8004-102cf9e8e90f)
 
